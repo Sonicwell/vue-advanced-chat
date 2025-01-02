@@ -12,6 +12,7 @@
 				:custom-search-room-enabled="customSearchRoomEnabled"
 				:text-messages="t"
 				:show-search="showSearchCasted"
+        :show-search-always="showSearchAlwaysCasted"
 				:show-add-room="showAddRoomCasted"
 				:show-rooms-list="showRoomsList && roomsListOpenedCasted"
 				:text-formatting="textFormattingCasted"
@@ -171,6 +172,7 @@ export default {
 		},
 		customSearchRoomEnabled: { type: [Boolean, String], default: false },
 		showSearch: { type: [Boolean, String], default: true },
+    showSearchAlways: { type: [Boolean, String], default: false },
 		showAddRoom: { type: [Boolean, String], default: true },
 		showSendIcon: { type: [Boolean, String], default: true },
 		showFiles: { type: [Boolean, String], default: true },
@@ -300,6 +302,9 @@ export default {
 		showSearchCasted() {
 			return this.castBoolean(this.showSearch)
 		},
+    showSearchAlwaysCasted() {
+      return this.castBoolean(this.showSearchAlways)
+    },
 		showAddRoomCasted() {
 			return this.castBoolean(this.showAddRoom)
 		},

@@ -240,6 +240,7 @@ Otherwise, you need to pass those props as strings. For example: `[messages]="JS
 | `templates-text`(14)                | [String, Array]  | -        | `null`                                                                                                            |
 | `auto-scroll`(15)                   | [String, Object] | -        | `{ send: { new: true, newAfterScrollUp: true }, receive: { new: true, newAfterScrollUp: false } }`                |
 | `show-search`                       | Boolean          | -        | `true`                                                                                                            |
+| `show-search-always`                | Boolean          | -        | `false`                                                                                                            |
 | `show-add-room`                     | Boolean          | -        | `true`                                                                                                            |
 | `show-send-icon`                    | Boolean          | -        | `true`                                                                                                            |
 | `show-files`                        | Boolean          | -        | `true`                                                                                                            |

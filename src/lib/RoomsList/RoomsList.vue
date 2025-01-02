@@ -15,6 +15,7 @@
 				:loading-rooms="loadingRooms"
 				:text-messages="textMessages"
 				:show-search="showSearch"
+				:show-search-always="showSearchAlways"
 				:show-add-room="showAddRoom"
 				@search-room="searchRoom"
 				@add-room="$emit('add-room')"
@@ -94,6 +95,7 @@ export default {
 		textMessages: { type: Object, required: true },
 		showRoomsList: { type: Boolean, required: true },
 		showSearch: { type: Boolean, required: true },
+    showSearchAlways: { type: Boolean, default: false },
 		showAddRoom: { type: Boolean, required: true },
 		textFormatting: { type: Object, required: true },
 		linkOptions: { type: Object, required: true },

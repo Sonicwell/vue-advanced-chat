@@ -10,11 +10,11 @@
 			</slot>
 			<div class="vac-name-container vac-text-ellipsis">
 				<div class="vac-title-container">
-					<div
+					<!-- <div
 						v-if="userStatus"
 						class="vac-state-circle"
 						:class="{ 'vac-state-online': userStatus === 'online' }"
-					/>
+					/> -->
 					<slot :name="'room-list-info_' + room.roomId">
 						<div class="vac-room-name vac-text-ellipsis">
 							{{ room.roomName }}
@@ -179,14 +179,14 @@ export default {
 
 			return `${user.username} - ${content}`
 		},
-		userStatus() {
-			if (!this.room.users || this.room.users.length !== 2) return
+		// userStatus() {
+		// 	if (!this.room.users || this.room.users.length !== 2) return
 
-			const user = this.room.users.find(u => u._id !== this.currentUserId)
-			if (user && user.status) return user.status.state
+		// 	const user = this.room.users.find(u => u._id !== this.currentUserId)
+		// 	if (user && user.status) return user.status.state
 
-			return null
-		},
+		// 	return null
+		// },
 		typingUsers() {
 			return typingText(this.room, this.currentUserId, this.textMessages)
 		},

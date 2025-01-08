@@ -5,6 +5,10 @@
 				<div
 					v-if="room.avatar"
 					class="vac-avatar"
+					:class="{
+						'vac-avatar-offline': userStatus === 'offline',
+						'vac-avatar-agent-groups': isAgent === false
+						}"
 					:style="{ 'background-image': `url('${room.avatar}')` }"
 				/>
 			</slot>
@@ -179,14 +183,17 @@ export default {
 
 			return `${user.username} - ${content}`
 		},
-		// userStatus() {
-		// 	if (!this.room.users || this.room.users.length !== 2) return
+		isAgent() {
+			return this.room?.source !== 'agent_groups'
+		},
+		userStatus() {
+			if (!this.room.users || this.room.users.length !== 2) return
 
-		// 	const user = this.room.users.find(u => u._id !== this.currentUserId)
-		// 	if (user && user.status) return user.status.state
+			const user = this.room.users.find(u => u._id !== this.currentUserId)
+			if (user && user.status && this.room?.source === 'agents') return user.status.state
 
-		// 	return null
-		// },
+			return null
+		},
 		typingUsers() {
 			return typingText(this.room, this.currentUserId, this.textMessages)
 		},

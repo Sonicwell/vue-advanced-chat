@@ -60,6 +60,14 @@
 	border-radius: 50%;
 }
 
+.vac-avatar-offline {
+	filter: grayscale(100%);
+}
+
+.vac-avatar-agent-groups {
+	border-radius: 0px;
+}
+
 .vac-blur-loading {
 	filter: blur(3px);
 }

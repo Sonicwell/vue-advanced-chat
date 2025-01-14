@@ -39,8 +39,7 @@
 		"lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
 		"reset": "rm -rf node_modules && rm -rf package-lock.json && npm i",
 		"reset-all": "cd demo && npm run reset-all",
-		"pull-master": "git pull origin master --no-edit --no-ff",
-		"prepare": "npm run build"
+		"pull-master": "git pull origin master --no-edit --no-ff"
 	},
 	"typings": "types/index.d.ts",
 	"files": [

@@ -195,7 +195,13 @@ export default {
 			return null
 		},
 		typingUsers() {
-			return typingText(this.room, this.currentUserId, this.textMessages)
+			let typingTexts = typingText(this.room, this.currentUserId, this.textMessages)
+
+			if (typingTexts !== 'IS_TYPING') {
+				return typingTexts
+			} else {
+				return ''
+			}
 		},
 		isMessageCheckmarkVisible() {
 			return (

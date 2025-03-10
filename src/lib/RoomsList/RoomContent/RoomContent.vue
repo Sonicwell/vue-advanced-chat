@@ -197,7 +197,7 @@ export default {
 		typingUsers() {
 			let typingTexts = typingText(this.room, this.currentUserId, this.textMessages)
 
-			if (typingTexts !== 'IS_TYPING') {
+			if (typingTexts !== this.textMessages.IS_TYPING) {
 				return typingTexts
 			} else {
 				return ''

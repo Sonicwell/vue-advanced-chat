@@ -62,6 +62,26 @@
 		}
 	}
 
+	.vac-section-divider {
+		display: flex;
+		align-items: center;
+		margin: 25px 0 10px 0;
+	}
+
+	.vac-section-title {
+		white-space: nowrap;
+		color: #000000;
+		font-size: 14px;
+		font-weight: bold;
+		margin-right: 8px;
+	}
+
+	.vac-section-line {
+		flex: 1;
+		height: 1px;
+		background-color: #eee;
+	}
+
 	@media only screen and (max-width: 768px) {
 		.vac-room-list {
 			padding: 0 7px 5px;

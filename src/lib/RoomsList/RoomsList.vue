@@ -61,6 +61,32 @@
 					</template>
 				</room-content>
 			</div>
+			<div v-if="agentGroupRooms.length > 0" class="vac-section-divider">
+				<span class="vac-section-title">{{ textMessages.AGENT_GROUPS }}</span>
+				<span class="vac-section-line"></span>
+			</div>
+			<div
+				v-for="fRoom in agentGroupRooms"
+				:id="fRoom.roomId"
+				:key="fRoom.roomId"
+				class="vac-room-item"
+				:class="{ 'vac-room-selected': selectedRoomId === fRoom.roomId }"
+				@click="openRoom(fRoom)"
+			>
+				<room-content
+					:current-user-id="currentUserId"
+					:room="fRoom"
+					:text-formatting="textFormatting"
+					:link-options="linkOptions"
+					:text-messages="textMessages"
+					:room-actions="roomActions"
+					@room-action-handler="$emit('room-action-handler', $event)"
+				>
+					<template v-for="(idx, name) in $slots" #[name]="data">
+						<slot :name="name" v-bind="data" />
+					</template>
+				</room-content>
+			</div>
 			<transition name="vac-fade-message">
 				<div v-if="rooms.length && !loadingRooms" id="infinite-loader-rooms">
 					<loader :show="showLoader" :infinite="true" type="infinite-rooms">
@@ -95,7 +121,7 @@ export default {
 		textMessages: { type: Object, required: true },
 		showRoomsList: { type: Boolean, required: true },
 		showSearch: { type: Boolean, required: true },
-    showSearchAlways: { type: Boolean, default: false },
+		showSearchAlways: { type: Boolean, default: false },
 		showAddRoom: { type: Boolean, required: true },
 		textFormatting: { type: Object, required: true },
 		linkOptions: { type: Object, required: true },
@@ -119,8 +145,12 @@ export default {
 	],
 
 	data() {
+		const agentRooms = (this.rooms || []).filter(r => r?.source !== 'agent_groups');
+		const agRooms = (this.rooms || []).filter(r => r?.source === 'agent_groups');
+		console.log('---------data--------', agentRooms, agRooms);
 		return {
-			filteredRooms: this.rooms || [],
+			filteredRooms: agentRooms,
+			agentGroupRooms: agRooms,
 			observer: null,
 			showLoader: true,
 			loadingMoreRooms: false,
@@ -132,7 +162,9 @@ export default {
 		rooms: {
 			deep: true,
 			handler(newVal, oldVal) {
-				this.filteredRooms = newVal
+				this.filteredRooms = newVal.filter(r => r?.source !== 'agent_groups');
+				this.agentGroupRooms = newVal.filter(r => r?.source === 'agent_groups');
+				console.log('---------handler--------', this.filteredRooms, this.agentGroupRooms);
 				if (newVal.length !== oldVal.length || this.roomsLoaded) {
 					this.loadingMoreRooms = false
 				}
@@ -194,8 +226,10 @@ export default {
 			if (this.customSearchRoomEnabled) {
 				this.$emit('search-room', ev.target.value)
 			} else {
+				const agentRooms = this.rooms.filter(r => r?.source !== 'agent_groups');
+				console.log('---------searchRoom--------', agentRooms);
 				this.filteredRooms = filteredItems(
-					this.rooms,
+					agentRooms,
 					'roomName',
 					ev.target.value
 				)

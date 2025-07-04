@@ -147,7 +147,6 @@ export default {
 	data() {
 		const agentRooms = (this.rooms || []).filter(r => r?.source !== 'agent_groups');
 		const agRooms = (this.rooms || []).filter(r => r?.source === 'agent_groups');
-		console.log('---------data--------', agentRooms, agRooms);
 		return {
 			filteredRooms: agentRooms,
 			agentGroupRooms: agRooms,
@@ -164,7 +163,6 @@ export default {
 			handler(newVal, oldVal) {
 				this.filteredRooms = newVal.filter(r => r?.source !== 'agent_groups');
 				this.agentGroupRooms = newVal.filter(r => r?.source === 'agent_groups');
-				console.log('---------handler--------', this.filteredRooms, this.agentGroupRooms);
 				if (newVal.length !== oldVal.length || this.roomsLoaded) {
 					this.loadingMoreRooms = false
 				}
@@ -227,7 +225,6 @@ export default {
 				this.$emit('search-room', ev.target.value)
 			} else {
 				const agentRooms = this.rooms.filter(r => r?.source !== 'agent_groups');
-				console.log('---------searchRoom--------', agentRooms);
 				this.filteredRooms = filteredItems(
 					agentRooms,
 					'roomName',

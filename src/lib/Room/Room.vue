@@ -64,6 +64,12 @@
 						</div>
 					</transition>
 					<div
+						v-show="messages.length && !messagesLoaded"
+						class="vac-gethistory-btn"
+					>
+						<a href="#" @click.prevent="getHistory">-{{ textMessages.GET_RECENT_DATA }}-</a>
+					</div>
+					<!-- <div
 						v-if="messages.length && !messagesLoaded"
 						id="infinite-loader-messages"
 					>
@@ -72,7 +78,7 @@
 								<slot :name="name" v-bind="data" />
 							</template>
 						</loader>
-					</div>
+					</div> -->
 					<transition-group :key="roomId" name="vac-fade-message" tag="span">
 						<div v-for="(m, i) in messages" :key="m.indexId || m._id">
 							<room-message
@@ -329,6 +335,9 @@ export default {
 	},
 
 	methods: {
+		getHistory() {
+			this.loadMoreMessages()
+		},
 		updateLoadingMessages(val) {
 			this.loadingMessages = val
 
@@ -502,10 +511,19 @@ export default {
 						this.showLoader = false
 						return
 					}
-
 					this.preventTopScroll()
 					this.$emit('fetch-messages')
 					this.loadingMoreMessages = true
+
+					// this.$nextTick(() => {
+					// 	const el = this.$refs.scrollContainer;
+					// 	if (el && el.scrollHeight <= el.clientHeight) {
+					// 		console.log('--------loadMoreMessages 再次加载，因为还是不满屏--------', el.scrollHeight,  el.clientHeight);
+					// 		// this.loadingMoreMessages = false;
+					// 		// this.updateLoadingMessages(false);
+					// 		this.loadMoreMessages();
+					// 	}
+					// });
 				},
 				// prevent scroll bouncing speed
 				500
